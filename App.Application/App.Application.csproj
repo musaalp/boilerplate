@@ -12,4 +12,8 @@
     <Folder Include="SecurityRoles\Queries\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\App.Domain\App.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
