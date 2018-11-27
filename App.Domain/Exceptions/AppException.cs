@@ -2,9 +2,9 @@
 
 namespace App.Domain.Exceptions
 {
-    public abstract class AppException : Exception
+    public abstract class ExceptionBase : Exception
     {
-        public AppException(Error error, Exception innerException = null)
+        public ExceptionBase(Error error, Exception innerException = null)
             : base(error.Message, innerException)
         {
 
