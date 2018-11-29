@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace App.Application.SecurityRoles.Commands.CreateSecurityRole
 {
-    public class CreateSecurityRoleHandler : IRequestHandler<CreateSecurityRoleCommand, int>
+    public class CreateSecurityRoleCommandHandler : IRequestHandler<CreateSecurityRoleCommand, int>
     {
-        public CreateSecurityRoleHandler()
+        public CreateSecurityRoleCommandHandler()
         {
             //todo: inject orm context
         }
