@@ -1,4 +1,6 @@
 ﻿using App.Application.SecurityRoles.Commands.CreateSecurityRole;
+using App.Application.SecurityRoles.Queries.GetSecurityRole;
+using App.Application.SecurityRoles.Queries.GetSecurityRoles;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,6 +11,13 @@ namespace App.WebUI.Controllers
     //api/security
     public class SecurityController : BaseController
     {
+        //get : api/security
+        [HttpGet]
+        public Task<SecurityRolesViewModel> Get()
+        {
+            return Mediator.Send(new GetSecurityRolesQuery());
+        }
+
         // post : api/security/create
         [HttpPost]
         [Route("create")]
@@ -20,9 +29,9 @@ namespace App.WebUI.Controllers
 
         // get: api/security/3
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return Ok(5);
+            return Ok(await Mediator.Send(new GetSecurityRoleQuery { SecurityRoleId = id }));
         }
     }
 }
