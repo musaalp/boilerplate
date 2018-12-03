@@ -1,4 +1,6 @@
-﻿using App.Persistence.Contexts;
+﻿using App.Application.Permissions.Queries.GetPermissions;
+using App.Persistence.Contexts;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace App.WebUI
 {
@@ -21,6 +24,9 @@ namespace App.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Add MediatR
+            services.AddMediatR(typeof(GetPermissionsQuery).GetTypeInfo().Assembly);
+
             //Add DbContext /MSSQL Server
             services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
