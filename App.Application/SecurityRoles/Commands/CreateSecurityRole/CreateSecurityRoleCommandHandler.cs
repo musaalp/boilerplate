@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using App.Domain.Entities;
+using App.Persistence.Contexts;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,14 +8,26 @@ namespace App.Application.SecurityRoles.Commands.CreateSecurityRole
 {
     public class CreateSecurityRoleCommandHandler : IRequestHandler<CreateSecurityRoleCommand, int>
     {
-        public CreateSecurityRoleCommandHandler()
+        private readonly AppDbContext _context;
+
+        public CreateSecurityRoleCommandHandler(AppDbContext context)
         {
-            //todo: inject orm context
+            _context = context;
         }
 
-        public Task<int> Handle(CreateSecurityRoleCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateSecurityRoleCommand request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var securityRole = new SecurityRole
+            {
+                Name = request.Name,
+                Description = request.Description
+            };
+
+            _context.SecurityRoles.Add(securityRole);
+
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return securityRole.Id;
         }
     }
 }
