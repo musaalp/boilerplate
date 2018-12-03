@@ -15,7 +15,7 @@ namespace App.Persistence.Contexts
 
         public DbSet<Permission> Permissions { get; set; }
 
-        public DbSet<SecurityRole> SecurityRole { get; set; }
+        public DbSet<SecurityRole> SecurityRoles { get; set; }
 
         public DbSet<PermissionUserAssociation> PermissionUserAssociations { get; set; }
 
