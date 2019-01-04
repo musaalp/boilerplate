@@ -1,6 +1,7 @@
 ﻿using App.Application.SecurityRoles.Commands.CreateSecurityRole;
 using App.Application.SecurityRoles.Queries.GetSecurityRole;
 using App.Application.SecurityRoles.Queries.GetSecurityRoles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace App.WebUI.Controllers
 {
     //api/security
+    [Authorize]
     public class SecurityController : BaseController
     {
         //get : api/security
