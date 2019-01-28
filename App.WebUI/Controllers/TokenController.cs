@@ -1,5 +1,7 @@
 ﻿using App.WebUI.Models;
+using App.WebUI.Models.TokenAuth;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,22 +12,32 @@ namespace App.WebUI.Controllers
 {
     public class TokenController : BaseController
     {
+        private readonly IConfiguration _configuration;
+
+        public TokenController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         [HttpPost]
-        [Route("token")]
-        public IActionResult GetToken([FromBody] UserInfo userInfo)
+        [Route("authenticate")]
+        public AuthenticateResultModel Authenticate([FromBody] UserInfo userInfo)
         {
             Console.WriteLine($"User name: {userInfo.Username}");
             Console.WriteLine($"Password: {userInfo.Password}");
 
             if (IsValidUser(userInfo.Username, userInfo.Password))
             {
-                return new ObjectResult(GenerateToken(userInfo.Username));
+                return new AuthenticateResultModel
+                {
+                    AccessToken = GenerateToken(userInfo.Username)
+                };
             }
 
-            return Unauthorized();
+            return null;
         }
 
-        private object GenerateToken(string username)
+        private string GenerateToken(string username)
         {
             var claims = new Claim[]
             {
@@ -34,14 +46,13 @@ namespace App.WebUI.Controllers
                 new Claim (JwtRegisteredClaimNames.NameId, Guid.NewGuid().ToString())
             };
 
-            //todo: read it from a proper place
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("boilerplateSigningKey"));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Authentication:JwtBearer:SecurityKey"]));
 
             var token = new JwtSecurityToken(
-                issuer: "issuer.boilerplate",
-                audience: "audience.boilerplate",
+                issuer: _configuration["Authentication:JwtBearer:Issuer"],
+                audience: _configuration["Authentication:JwtBearer:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(5),
                 signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)
             );
 
