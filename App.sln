@@ -13,11 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrustructure", "Infrustructure", "{28ED4CE3-E262-4428-BBFD-FF0F1A4A06D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Application", "App.Application\App.Application.csproj", "{E708C3B3-AD16-4DB7-921E-89705DA7E533}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Application", "src\App.Application\App.Application.csproj", "{E708C3B3-AD16-4DB7-921E-89705DA7E533}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Domain", "App.Domain\App.Domain.csproj", "{6A94C276-0746-4348-8961-79BFD6B9DB7C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Domain", "src\App.Domain\App.Domain.csproj", "{6A94C276-0746-4348-8961-79BFD6B9DB7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Infrustructure.Persistence", "App.Infrustructure.Persistence\App.Infrustructure.Persistence.csproj", "{F5EF214D-CCEC-42A3-832D-46D9FBE4F0C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.Infrustructure.Persistence", "src\App.Infrustructure.Persistence\App.Infrustructure.Persistence.csproj", "{F5EF214D-CCEC-42A3-832D-46D9FBE4F0C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
