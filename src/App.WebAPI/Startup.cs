@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using App.Infrustructure.RabbitMQ.Extensions;
 using Microsoft.Extensions.Hosting;
 
 namespace App.WebAPI
@@ -21,6 +22,7 @@ namespace App.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication(Configuration);
+            services.AddRabbitMQ(Configuration);
 
             services.AddControllers();
 
@@ -34,6 +36,8 @@ namespace App.WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseRabbitMQ();
 
             app.UseHttpsRedirection();
 
