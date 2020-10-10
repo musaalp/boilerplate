@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using App.Infrustructure.RabbitMQ.Extensions;
 using Microsoft.Extensions.Hosting;
+using FluentValidation.AspNetCore;
+using App.Application.Auths.Queries;
+using App.WebAPI.Middelewares;
 
 namespace App.WebAPI
 {
@@ -24,7 +27,12 @@ namespace App.WebAPI
             services.AddApplication(Configuration);
             services.AddRabbitMQ(Configuration);
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                })
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginUserQueryValidator>());
 
             AuthConfigurer.Configure(services, Configuration);
         }
@@ -35,7 +43,7 @@ namespace App.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
+            }            
 
             app.UseRabbitMQ();
 
